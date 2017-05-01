@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
 import be.vdab.services.FiliaalService;
+import be.vdab.valueobjects.PostcodeReeks;
 
 @Controller
 @RequestMapping("/filialen")
@@ -30,6 +31,7 @@ class FiliaalController {
     private static final String REDIRECT_URL_HEEFT_NOG_WERKNEMERS = 
 	    "redirect:/filialen/{id}"; 
     private static final String VERWIJDERD_VIEW = "filialen/verwijderd";
+    private static final String PER_POSTCODE_VIEW = "filialen/perpostcode"; 
     
     private static final Logger LOGGER = Logger.getLogger(FiliaalController.class.getName());
     private final FiliaalService filiaalService;
@@ -90,5 +92,13 @@ class FiliaalController {
     String deleted() {
 	return VERWIJDERD_VIEW;
     } 
+    
+    @GetMapping("perpostcode")
+    ModelAndView findByPostcodeReeks() {
+	PostcodeReeks reeks = new PostcodeReeks();
+	reeks.setVanpostcode(1000);
+	reeks.setTotpostcode(9999);
+	return new ModelAndView(PER_POSTCODE_VIEW).addObject(reeks);
+    }
 
 }
