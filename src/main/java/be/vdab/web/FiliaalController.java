@@ -42,7 +42,8 @@ class FiliaalController {
 
     @GetMapping
     ModelAndView findAll() {
-	return new ModelAndView(FILIALEN_VIEW, "filialen", filiaalService.findAll());
+	return new ModelAndView(FILIALEN_VIEW, "filialen", filiaalService.findAll())
+		.addObject("aantalFilialen", filiaalService.findAantalFilialen());
     }
 
     @GetMapping("toevoegen")
