@@ -17,6 +17,7 @@ class FiliaalController {
     private static final String FILIALEN_VIEW = "filialen/filialen";
     private static final String TOEVOEGEN_VIEW = "filialen/toevoegen";
     private static final String REDIRECT_URL_NA_TOEVOEGEN = "redirect:/filialen";
+    private static final String FILIAAL_VIEW = "filialen/filiaal"; 
     private static final Logger LOGGER = Logger.getLogger(FiliaalController.class.getName());
     private final FiliaalService filiaalService;
 
@@ -41,6 +42,14 @@ class FiliaalController {
 	// later voeg je een record toe aan de database
 	LOGGER.info("filiaal record toevoegen aan database");
 	return REDIRECT_URL_NA_TOEVOEGEN;
+    }
+    
+    @GetMapping(params = "id")
+    ModelAndView read(long id) {
+	ModelAndView modelAndView = new ModelAndView(FILIAAL_VIEW);
+	filiaalService.read(id)
+		.ifPresent(filiaal -> modelAndView.addObject(filiaal));
+	return modelAndView;
     }
 
 }
