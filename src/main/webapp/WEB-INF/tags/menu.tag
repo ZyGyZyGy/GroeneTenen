@@ -11,15 +11,18 @@
 						postcode</a></li>
 				<li><a href="<c:url value='/filialen/perid'/>">Per id</a></li>
 				<li><a href="<c:url value='/filialen/afschrijven'/>">Afschrijven</a></li>
-			</ul></li>
+			</ul>
+		</li>
 		<li><a href="#">Werknemers</a>
 			<ul>
 				<li><a href="<c:url value='/werknemers'/>">Lijst</a></li>
-			</ul></li>
+			</ul>
+		</li>
 		<li><a href="#">Offertes</a>
 			<ul>
 				<li><a href="<c:url value='/offertes/aanvraag'/>">Aanvraag</a></li>
-			</ul></li>
+			</ul>
+		</li>
 		<c:if test='${pageContext.response.locale.language != "nl"}'>
 			<c:url value='' var='nederlandsURL'>
 				<c:param name='locale' value='nl_be' />
