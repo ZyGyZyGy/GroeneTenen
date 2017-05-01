@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,8 +45,8 @@ class FiliaalController {
 	return REDIRECT_URL_NA_TOEVOEGEN;
     }
     
-    @GetMapping(params = "id")
-    ModelAndView read(long id) {
+    @GetMapping("{id}")  
+    ModelAndView read(@PathVariable long id) {
 	ModelAndView modelAndView = new ModelAndView(FILIAAL_VIEW);
 	filiaalService.read(id)
 		.ifPresent(filiaal -> modelAndView.addObject(filiaal));
