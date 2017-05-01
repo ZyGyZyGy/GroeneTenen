@@ -11,7 +11,7 @@
 	<v:menu />
 	<h1>Filialen</h1>
 	<c:forEach items='${filialen}' var='filiaal'>
-		<spring:url var='url' value='/filialen/{id}'>  
+		<spring:url value='/filialen/{id}' var='url'>  
   			<spring:param name='id' value='${filiaal.id}'/>  
 		</spring:url> 
 		<h2><a href='${url}'>${filiaal.naam}</a></h2> 
