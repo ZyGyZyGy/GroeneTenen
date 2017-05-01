@@ -2,6 +2,6 @@ package be.vdab.exceptions;
 
 public class FiliaalHeeftNogWerknemersException extends RuntimeException {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }
