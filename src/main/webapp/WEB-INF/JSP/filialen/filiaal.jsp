@@ -1,6 +1,6 @@
 <%@page contentType='text/html' pageEncoding='UTF-8' session='false'%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
-<%@taglib prefix='fmt' uri='http://java.sun.com/jsp/jstl/fmt'%>
+<%@taglib prefix='spring' uri='http://www.springframework.org/tags'%> 
 <%@taglib prefix='v' uri='http://vdab.be/tags'%>
 <%@taglib prefix='spring' uri='http://www.springframework.org/tags'%> 
 <!doctype html>
@@ -25,15 +25,9 @@
 				<dt>Type</dt>
 				<dd>${filiaal.hoofdFiliaal ? "Hoofdfiliaal" : "Bijfiliaal"}</dd>
 				<dt>Waarde gebouw</dt>
-				<dd>&euro;<fmt:formatNumber value='${filiaal.waardeGebouw}' />
-				</dd>
+				<dd><spring:eval expression='filiaal.waardeGebouw'/></dd> 
 				<dt>Ingebruikname</dt>
-				<fmt:parseDate value="${filiaal.ingebruikname}" pattern="yyyy-MM-dd"
-					var="ingebruiknameAlsDate" type="date" />
-				<dd>
-					<fmt:formatDate value='${ingebruiknameAlsDate}' type="date"
-						dateStyle="short" />
-				</dd>
+				<dd><spring:eval expression='filiaal.ingebruikname'/></dd>
 			</dl>
 			
 			<spring:url value='/filialen/{id}/verwijderen' var='verwijderURL'> 
