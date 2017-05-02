@@ -18,6 +18,7 @@
 		<form:label path='totPostcode'>Tot:<form:errors path='totPostcode'/></form:label>
 		<form:input path='totPostcode' />
 		<input type='submit' value='Zoeken'>
+		<form:errors cssClass='fout'/> 
 	</form:form>
 	<c:forEach items='${filialen}' var='filiaal'>
 		<spring:url var='url' value='/filialen/{id}'>
