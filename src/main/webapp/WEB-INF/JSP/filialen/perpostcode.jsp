@@ -14,10 +14,10 @@
 	<c:url value='/filialen' var='url' />
 	<form:form action='${url}' commandName='postcodeReeks' method='get'>
 		<form:label path='vanPostcode'>Van:<form:errors path='vanPostcode'/></form:label>
-		<form:input path='vanpostcode' autofocus='autofocus' type='number'
+		<form:input path='vanPostcode' autofocus='autofocus' type='number'
 			required='required' min='1000' max='9999' />
 		<form:label path='totPostcode'>Tot:<form:errors path='totPostcode'/></form:label>
-		<form:input path='totpostcode' required='required' type='number'
+		<form:input path='totPostcode' required='required' type='number'
 			min='1000' max='9999' />
 		<input type='submit' value='Zoeken'>
 		<form:errors cssClass='fout'/> 
