@@ -22,8 +22,7 @@ public class PostcodeReeks {
     }
 
     public boolean bevat(int postcode) {
-	// bevat de reeks een bepaalde postcode ? (gebruikt in de repository
-	// layer)
+	// bevat de reeks een bepaalde postcode ? (gebruikt in de repository layer)
 	return postcode >= vanPostcode && postcode <= totPostcode;
     }
 

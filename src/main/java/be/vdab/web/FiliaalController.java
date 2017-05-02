@@ -100,5 +100,11 @@ class FiliaalController {
 	reeks.setTotpostcode(9999);
 	return new ModelAndView(PER_POSTCODE_VIEW).addObject(reeks);
     }
+    
+    @GetMapping(params = { "vanpostcode", "totpostcode" })
+    ModelAndView findByPostcodeReeks(PostcodeReeks reeks) {
+	return new ModelAndView(PER_POSTCODE_VIEW, 
+		"filialen", filiaalService.findByPostcodeReeks(reeks));
+    }
 
 }
