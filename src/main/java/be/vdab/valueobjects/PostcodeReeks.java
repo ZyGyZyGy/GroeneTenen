@@ -2,15 +2,10 @@ package be.vdab.valueobjects;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Range;
-
 import be.vdab.constraints.Postcode;
 
 public class PostcodeReeks {
 
-    private final static int MIN_POSTCODE = 1000; 
-    private final static int MAX_POSTCODE = 9999;
-    
     @NotNull @Postcode
     private Integer vanPostcode;
     @NotNull @Postcode
