@@ -13,10 +13,10 @@
 	<h1>Filialen per postcode</h1>
 	<c:url value='/filialen' var='url' />
 	<form:form action='${url}' commandName='postcodeReeks' method='get'>
-		<form:label path='vanpostcode'>Van:</form:label>
-		<form:input path='vanpostcode' autofocus='autofocus' />
-		<form:label path='totpostcode'>Tot:</form:label>
-		<form:input path='totpostcode' />
+		<form:label path='vanPostcode'>Van:</form:label>
+		<form:input path='vanPostcode' autofocus='autofocus' />
+		<form:label path='totPostcode'>Tot:</form:label>
+		<form:input path='totPostcode' />
 		<input type='submit' value='Zoeken'>
 	</form:form>
 	<c:forEach items='${filialen}' var='filiaal'>

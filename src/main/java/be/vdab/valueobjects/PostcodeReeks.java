@@ -2,22 +2,22 @@ package be.vdab.valueobjects;
 
 public class PostcodeReeks {
 
-    private int vanPostcode;
-    private int totPostcode;
+    private Integer vanPostcode;
+    private Integer totPostcode;
 
-    public int getVanpostcode() {
+    public Integer getVanPostcode() {
 	return vanPostcode;
     }
 
-    public void setVanpostcode(int vanPostcode) {
+    public void setVanPostcode(Integer vanPostcode) {
 	this.vanPostcode = vanPostcode;
     }
 
-    public int getTotpostcode() {
+    public Integer getTotPostcode() {
 	return totPostcode;
     }
 
-    public void setTotpostcode(int totPostcode) {
+    public void setTotPostcode(Integer totPostcode) {
 	this.totPostcode = totPostcode;
     }
 

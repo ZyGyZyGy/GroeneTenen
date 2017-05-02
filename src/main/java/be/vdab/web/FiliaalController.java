@@ -96,8 +96,6 @@ class FiliaalController {
     @GetMapping("perpostcode")
     ModelAndView findByPostcodeReeks() {
 	PostcodeReeks reeks = new PostcodeReeks();
-	reeks.setVanpostcode(1000);
-	reeks.setTotpostcode(9999);
 	return new ModelAndView(PER_POSTCODE_VIEW).addObject(reeks);
     }
     
