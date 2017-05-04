@@ -17,16 +17,8 @@ public class PostcodeReeks {
 	return vanPostcode;
     }
 
-    public void setVanPostcode(Integer vanPostcode) {
-	this.vanPostcode = vanPostcode;
-    }
-
     public Integer getTotPostcode() {
 	return totPostcode;
-    }
-
-    public void setTotPostcode(Integer totPostcode) {
-	this.totPostcode = totPostcode;
     }
 
     public boolean bevat(int postcode) {
