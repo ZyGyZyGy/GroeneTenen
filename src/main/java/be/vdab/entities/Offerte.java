@@ -2,7 +2,10 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+
+import be.vdab.enums.Gazontype;
 
 public class Offerte implements Serializable {
 
@@ -34,9 +39,12 @@ public class Offerte implements Serializable {
     @NotNull(groups = Stap2.class)
     @Min(value = 1, groups = Stap2.class)
     private Integer oppervlakte;
+    private Map<Gazontype, Boolean> gazontypes = new LinkedHashMap<>();
 
     public Offerte() {
 	telefoonNrs.add(""); // vak maken voor een eerste te tikken telefoonnummer
+	Arrays.stream(Gazontype.values()) 
+	      .forEach(gazonType -> gazontypes.put(gazonType, false)); 
     }
 
     public String getVoornaam() {
@@ -78,20 +86,17 @@ public class Offerte implements Serializable {
     public void setOppervlakte(Integer oppervlakte) {
 	this.oppervlakte = oppervlakte;
     }
-    
+
+    public Map<Gazontype, Boolean> getGazontypes() {
+	return gazontypes;
+    }
+
+    public void setGazontypes(Map<Gazontype, Boolean> gazontypes) {
+	this.gazontypes = gazontypes;
+    }
+
     public void nogEenTelefoonNr() {
 	telefoonNrs.add("");
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-

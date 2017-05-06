@@ -43,6 +43,9 @@ class OfferteController {
     @PostMapping(params = "bevestigen")
     String create(@Validated(Offerte.Stap2.class) Offerte offerte, 
 	    BindingResult bindingResult, SessionStatus sessionStatus) {
+	if (!offerte.getGazontypes().values().contains(true)) {
+	    bindingResult.reject("minstensEenGazonType");
+	}
 	if (bindingResult.hasErrors()) {
 	    return STAP2_VIEW;
 	}
