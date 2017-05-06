@@ -50,4 +50,23 @@ class OfferteController {
 	sessionStatus.setComplete();
 	return REDIRECT_URL_NA_TOEVOEGEN;
     }
+    
+    @PostMapping(params = "nogeennummer")
+    String nogEenNummer(Offerte offerte) {
+	offerte.nogEenTelefoonNr();
+	return STAP1_VIEW;
+    }
+    
 } 
+
+
+
+
+
+
+
+
+
+
+
+

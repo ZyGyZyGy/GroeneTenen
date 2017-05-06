@@ -1,6 +1,8 @@
 package be.vdab.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ public class Offerte implements Serializable {
     }
 
     private static final long serialVersionUID = 1L;
-    
+
     @NotBlank(groups = Stap1.class)
     @SafeHtml(groups = Stap1.class)
     private String voornaam;
@@ -28,12 +30,13 @@ public class Offerte implements Serializable {
     @NotBlank(groups = Stap1.class)
     @Email(groups = Stap1.class)
     private String emailAdres;
+    private List<String> telefoonNrs = new ArrayList<>();
     @NotNull(groups = Stap2.class)
     @Min(value = 1, groups = Stap2.class)
     private Integer oppervlakte;
-    
+
     public Offerte() {
-	
+	telefoonNrs.add(""); // vak maken voor een eerste te tikken telefoonnummer
     }
 
     public String getVoornaam() {
@@ -60,6 +63,14 @@ public class Offerte implements Serializable {
 	this.emailAdres = emailAdres;
     }
 
+    public List<String> getTelefoonNrs() {
+	return telefoonNrs;
+    }
+
+    public void setTelefoonNrs(List<String> telefoonNrs) {
+	this.telefoonNrs = telefoonNrs;
+    }
+
     public Integer getOppervlakte() {
 	return oppervlakte;
     }
@@ -67,5 +78,20 @@ public class Offerte implements Serializable {
     public void setOppervlakte(Integer oppervlakte) {
 	this.oppervlakte = oppervlakte;
     }
+    
+    public void nogEenTelefoonNr() {
+	telefoonNrs.add("");
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+

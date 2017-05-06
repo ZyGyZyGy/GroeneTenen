@@ -14,9 +14,9 @@
 	<form:form commandName='offerte'> 
 		<form:label path='oppervlakte'>Oppervlakte: 
 		<form:errors path='oppervlakte'/>
-		</form:label> 
-		<form:input path='oppervlakte' autofocus='true' required='required' 
-		  type='number' min='1'/> 
+		</form:label>
+		<form:input path='oppervlakte' autofocus='true' required='required'
+			type='number' min='1' />
 		<input type='submit' value='Vorige stap' name='vorige' formnovalidate>  
 		<input type='submit' value='Bevestigen' name='bevestigen'> 
 	</form:form> 
