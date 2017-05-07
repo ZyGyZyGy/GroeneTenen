@@ -1,5 +1,6 @@
 package be.vdab.repositories;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import be.vdab.entities.Filiaal;
@@ -30,6 +32,7 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 	    "select count(*) from filialen"; 
     private static final String SQL_FIND_AANTAL_WERKNEMERS =  
 	    "select count(*) from werknemers where filiaalId = ?"; 
+    private final SimpleJdbcInsert simpleJdbcInsert; 
     
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -47,10 +50,12 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
     	    		resultSet.getInt("postcode"), 
     	    		resultSet.getString("gemeente")));
 
-    InMemoryFiliaalRepository(JdbcTemplate jdbcTemplate, 
-	    NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    InMemoryFiliaalRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 	this.jdbcTemplate = jdbcTemplate;
 	this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+	simpleJdbcInsert.withTableName("filialen");
+	simpleJdbcInsert.usingGeneratedKeyColumns("id");
     }
     
     @Override
@@ -73,8 +78,16 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public void create(Filiaal filiaal) {
-	// TODO Auto-generated method stub
-	
+	Map<String, Object> kolomWaarden = new HashMap<>();
+	kolomWaarden.put("naam", filiaal.getNaam());
+	kolomWaarden.put("hoofdFiliaal", filiaal.isHoofdFiliaal());
+	kolomWaarden.put("straat", filiaal.getAdres().getStraat());
+	kolomWaarden.put("huisNr", filiaal.getAdres().getHuisNr());
+	kolomWaarden.put("postcode", filiaal.getAdres().getPostcode());
+	kolomWaarden.put("gemeente", filiaal.getAdres().getGemeente());
+	kolomWaarden.put("inGebruikName", Date.valueOf(filiaal.getIngebruikname()));
+	kolomWaarden.put("waardeGebouw", filiaal.getWaardeGebouw());
+	simpleJdbcInsert.execute(kolomWaarden);
     }
 
     @Override
