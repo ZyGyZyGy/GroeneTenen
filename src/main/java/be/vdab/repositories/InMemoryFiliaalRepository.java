@@ -1,6 +1,8 @@
 package be.vdab.repositories;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,8 +21,8 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 	    "select id, naam, hoofdFiliaal, straat, huisNr, postcode, gemeente," + 
 	    "inGebruikName, waardeGebouw from filialen "; 
     private static final String SQL_FIND_ALL = BEGIN_SQL + "order by naam"; 
-    private static final String SQL_FIND_BY_POSTCODE = BEGIN_SQL +  
-	    "where postcode between ? and ? order by naam"; 
+    private static final String SQL_FIND_BY_POSTCODE = BEGIN_SQL + 
+	    "where postcode between :van and :tot order by naam"; 
     
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -56,8 +58,10 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
-	return jdbcTemplate.query(SQL_FIND_BY_POSTCODE, rowMapper, 
-		reeks.getVanPostcode(), reeks.getTotPostcode());
+	Map<String, Object> parameters = new HashMap<>();
+	parameters.put("van", reeks.getVanPostcode());
+	parameters.put("tot", reeks.getTotPostcode());
+	return namedParameterJdbcTemplate.query(SQL_FIND_BY_POSTCODE, parameters, rowMapper);
     }
 
     @Override
