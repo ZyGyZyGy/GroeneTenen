@@ -1,12 +1,7 @@
 package be.vdab.repositories;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,12 +15,12 @@ import be.vdab.valueobjects.PostcodeReeks;
 @Repository
 public class InMemoryFiliaalRepository implements FiliaalRepository {
 
-    private final Map<Long, Filiaal> filialen = new ConcurrentHashMap<>();
-    
     private static final String BEGIN_SQL = 
 	    "select id, naam, hoofdFiliaal, straat, huisNr, postcode, gemeente," + 
 	    "inGebruikName, waardeGebouw from filialen "; 
     private static final String SQL_FIND_ALL = BEGIN_SQL + "order by naam"; 
+    private static final String SQL_FIND_BY_POSTCODE = BEGIN_SQL +  
+	    "where postcode between ? and ? order by naam"; 
     
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -48,36 +43,10 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 	this.jdbcTemplate = jdbcTemplate;
 	this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
-
-    @Override
-    public void create(Filiaal filiaal) {
-	filiaal.setId(Collections.max(filialen.keySet()) + 1);
-	filialen.put(filiaal.getId(), filiaal);
-    }
-
-    @Override
-    public Optional<Filiaal> read(long id) {
-	return Optional.ofNullable(filialen.get(id));
-    }
-
-    @Override
-    public void update(Filiaal filiaal) {
-	filialen.put(filiaal.getId(), filiaal);
-    }
-
-    @Override
-    public void delete(long id) {
-	filialen.remove(id);
-    }
-
+    
     @Override
     public List<Filiaal> findAll() {
 	return jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
-    }
-
-    @Override
-    public long findAantalFilialen() {
-	return filialen.size();
     }
 
     @Override
@@ -87,8 +56,38 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
-	return filialen.values().stream().filter(filiaal -> reeks.bevat(filiaal.getAdres().getPostcode()))
-		.collect(Collectors.toList());
+	return jdbcTemplate.query(SQL_FIND_BY_POSTCODE, rowMapper, 
+		reeks.getVanPostcode(), reeks.getTotPostcode());
+    }
+
+    @Override
+    public void create(Filiaal filiaal) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public Optional<Filiaal> read(long id) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public void update(Filiaal filiaal) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public void delete(long id) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public long findAantalFilialen() {
+	// TODO Auto-generated method stub
+	return 0;
     }
 
 }
