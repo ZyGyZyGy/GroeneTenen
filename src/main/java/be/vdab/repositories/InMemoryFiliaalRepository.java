@@ -26,6 +26,10 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
     private static final String SQL_FIND_BY_POSTCODE = BEGIN_SQL + 
 	    "where postcode between :van and :tot order by naam"; 
     private static final String SQL_READ = BEGIN_SQL + "where id = :id";
+    private static final String SQL_FIND_AANTAL_FILIALEN =  
+	    "select count(*) from filialen"; 
+    private static final String SQL_FIND_AANTAL_WERKNEMERS =  
+	    "select count(*) from werknemers where filiaalId = ?"; 
     
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -56,7 +60,7 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public long findAantalWerknemers(long id) {
-	return id == 1L ? 7L : 0L;
+	return jdbcTemplate.queryForObject(SQL_FIND_AANTAL_WERKNEMERS, Long.class, id);
     }
 
     @Override
@@ -97,8 +101,7 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public long findAantalFilialen() {
-	// TODO Auto-generated method stub
-	return 0;
+	return jdbcTemplate.queryForObject(SQL_FIND_AANTAL_FILIALEN, Long.class);
     }
 
 }
