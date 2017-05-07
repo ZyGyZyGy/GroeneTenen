@@ -32,8 +32,16 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 	    "select count(*) from filialen"; 
     private static final String SQL_FIND_AANTAL_WERKNEMERS =  
 	    "select count(*) from werknemers where filiaalId = ?"; 
-    private final SimpleJdbcInsert simpleJdbcInsert; 
+    private static final String SQL_DELETE = 
+	    "delete from filialen "
+	  + "where id = ?"; 
+    private static final String SQL_UPDATE = 
+	    "update filialen "
+	  + "set naam=:naam,hoofdFiliaal=:hoofdFiliaal, straat=:straat," + 
+	    "huisNr=:huisNr, postcode=:postcode, gemeente=:gemeente, " + 
+	    "inGebruikName=:inGebruikName, waardeGebouw=:waardeGebouw where id = :id"; 
     
+    private final SimpleJdbcInsert simpleJdbcInsert; 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
@@ -102,14 +110,22 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public void update(Filiaal filiaal) {
-	// TODO Auto-generated method stub
-	
+	Map<String, Object> parameters = new HashMap<>();
+	parameters.put("id", filiaal.getId());
+	parameters.put("naam", filiaal.getNaam());
+	parameters.put("hoofdFiliaal", filiaal.isHoofdFiliaal());
+	parameters.put("straat", filiaal.getAdres().getStraat());
+	parameters.put("huisNr", filiaal.getAdres().getHuisNr());
+	parameters.put("postcode", filiaal.getAdres().getPostcode());
+	parameters.put("gemeente", filiaal.getAdres().getGemeente());
+	parameters.put("inGebruikName", Date.valueOf(filiaal.getIngebruikname()));
+	parameters.put("waardeGebouw", filiaal.getWaardeGebouw());
+	namedParameterJdbcTemplate.update(SQL_UPDATE, parameters);
     }
 
     @Override
     public void delete(long id) {
-	// TODO Auto-generated method stub
-	
+	jdbcTemplate.update(SQL_DELETE, id);
     }
 
     @Override
