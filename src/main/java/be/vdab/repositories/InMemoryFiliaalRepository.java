@@ -1,10 +1,12 @@
 package be.vdab.repositories;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,6 +25,7 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
     private static final String SQL_FIND_ALL = BEGIN_SQL + "order by naam"; 
     private static final String SQL_FIND_BY_POSTCODE = BEGIN_SQL + 
 	    "where postcode between :van and :tot order by naam"; 
+    private static final String SQL_READ = BEGIN_SQL + "where id = :id";
     
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -72,8 +75,12 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
 
     @Override
     public Optional<Filiaal> read(long id) {
-	// TODO Auto-generated method stub
-	return null;
+	Map<String, Long> parameters = Collections.singletonMap("id", id);
+	try {
+	    return Optional.of(namedParameterJdbcTemplate.queryForObject(SQL_READ, parameters, rowMapper));
+	} catch (IncorrectResultSizeDataAccessException ex) {
+	    return Optional.empty(); // record niet gevonden
+	}
     }
 
     @Override
