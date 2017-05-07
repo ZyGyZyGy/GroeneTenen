@@ -19,7 +19,7 @@ import be.vdab.valueobjects.Adres;
 import be.vdab.valueobjects.PostcodeReeks;
 
 @Repository
-public class InMemoryFiliaalRepository implements FiliaalRepository {
+public class JdbcFiliaalRepository implements FiliaalRepository {
 
     private static final String BEGIN_SQL = 
 	    "select id, naam, hoofdFiliaal, straat, huisNr, postcode, gemeente," + 
@@ -58,7 +58,7 @@ public class InMemoryFiliaalRepository implements FiliaalRepository {
     	    		resultSet.getInt("postcode"), 
     	    		resultSet.getString("gemeente")));
 
-    InMemoryFiliaalRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    JdbcFiliaalRepository(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 	this.jdbcTemplate = jdbcTemplate;
 	this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
