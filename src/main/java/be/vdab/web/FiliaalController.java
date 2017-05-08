@@ -1,7 +1,6 @@
 package be.vdab.web;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -76,25 +75,26 @@ class FiliaalController {
 	return REDIRECT_URL_NA_TOEVOEGEN;
     }
     
-    @GetMapping("{id}")  
-    ModelAndView read(@PathVariable long id) {
+    @GetMapping("{filiaal}")
+    ModelAndView read(@PathVariable Filiaal filiaal) {
 	ModelAndView modelAndView = new ModelAndView(FILIAAL_VIEW);
-	filiaalService.read(id)
-		.ifPresent(filiaal -> modelAndView.addObject(filiaal));
+	if (filiaal != null) {
+	    modelAndView.addObject(filiaal);
+	}
 	return modelAndView;
     }
     
-    @PostMapping("{id}/verwijderen")
-    String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
-	Optional<Filiaal> optionalFiliaal = filiaalService.read(id);
-	if (!optionalFiliaal.isPresent()) {
+    @PostMapping("{filiaal}/verwijderen")
+    String delete(@PathVariable Filiaal filiaal, RedirectAttributes redirectAttributes) {
+	if (filiaal == null) {
 	    return REDIRECT_URL_FILIAAL_NIET_GEVONDEN;
 	}
+	long id = filiaal.getId();
 	try {
 	    filiaalService.delete(id);
 	    redirectAttributes
-	    	.addAttribute("id", id)
-	    	.addAttribute("naam", optionalFiliaal.get().getNaam());
+        	    .addAttribute("id", id)
+        	    .addAttribute("naam", filiaal.getNaam());
 	    return REDIRECT_URL_NA_VERWIJDEREN;
 	} catch (FiliaalHeeftNogWerknemersException ex) {
 	    redirectAttributes
@@ -134,13 +134,12 @@ class FiliaalController {
 	return modelAndView;
     }
     
-    @GetMapping("{id}/wijzigen")
-    ModelAndView updateForm(@PathVariable long id) {
-	Optional<Filiaal> optionalFiliaal = filiaalService.read(id);
-	if (!optionalFiliaal.isPresent()) {
+    @GetMapping("{filiaal}/wijzigen")
+    ModelAndView updateForm(@PathVariable Filiaal filiaal) {
+	if (filiaal == null) {
 	    return new ModelAndView(REDIRECT_URL_FILIAAL_NIET_GEVONDEN);
 	}
-	return new ModelAndView(WIJZIGEN_VIEW).addObject(optionalFiliaal.get());
+	return new ModelAndView(WIJZIGEN_VIEW).addObject(filiaal);
     }
     
     @PostMapping("{id}/wijzigen")
