@@ -95,7 +95,8 @@ public class JdbcFiliaalRepository implements FiliaalRepository {
 	kolomWaarden.put("gemeente", filiaal.getAdres().getGemeente());
 	kolomWaarden.put("inGebruikName", Date.valueOf(filiaal.getIngebruikname()));
 	kolomWaarden.put("waardeGebouw", filiaal.getWaardeGebouw());
-	simpleJdbcInsert.execute(kolomWaarden);
+	Number id = simpleJdbcInsert.executeAndReturnKey(kolomWaarden);
+	filiaal.setId(id.longValue()); // dit heb je nodig voor Unit Tests
     }
 
     @Override
