@@ -3,11 +3,14 @@ package be.vdab.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
 import be.vdab.repositories.FiliaalRepository;
 import be.vdab.valueobjects.PostcodeReeks;
 
+@Service
 @ReadOnlyTransactionalService
 public class DefaultFiliaalService implements FiliaalService {
 
