@@ -37,23 +37,30 @@ public class Filiaal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    
     @NotBlank
     @Length(min = 1, max = 50)
     @SafeHtml
     private String naam;
+    
     private boolean hoofdFiliaal;
+    
     @NumberFormat(style = Style.CURRENCY)
     @NotNull 
     @Min(0) 
     @Digits(integer = 10, fraction = 2) 
     private BigDecimal waardeGebouw;
+    
     @DateTimeFormat(style = "S-")
     private LocalDate ingebruikname;
+    
     @Embedded
     @Valid
     private Adres adres;
+    
     @OneToMany(mappedBy = "filiaal")
     private Set<Werknemer> werknemers;
+    
     @Version 
     private long versie; 
 
@@ -126,6 +133,10 @@ public class Filiaal implements Serializable {
 
     public void setAdres(Adres adres) {
 	this.adres = adres;
+    }
+    
+    public void afschrijven() {
+	this.waardeGebouw = BigDecimal.ZERO;
     }
 
 }
