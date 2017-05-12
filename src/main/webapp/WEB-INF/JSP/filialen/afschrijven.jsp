@@ -12,8 +12,8 @@
 	<form:form commandName='afschrijvenForm'>
 		<form:label path='filialen'>Filiaal:<form:errors path='filialen'/>
 		</form:label>
-		<form:select items='${filialen}' itemLabel='naam' itemValue='id' path='filialen' 
-			size='5' multiple='multiple'/> 
+		<form:checkboxes items='${filialen}' itemLabel='naam' itemValue='id' 
+			path='filialen' element='div'/>  
 		<input type='submit' value='Afschrijven' />
 	</form:form>
 </body>
