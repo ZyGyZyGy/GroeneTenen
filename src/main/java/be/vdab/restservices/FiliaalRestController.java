@@ -1,7 +1,12 @@
 package be.vdab.restservices;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.Valid;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -82,4 +88,20 @@ class FiliaalRestController {
 	filiaalService.update(filiaal);
     }
     
+    @RequestMapping(path = "{filiaal}", method = RequestMethod.OPTIONS)
+    HttpHeaders options(@PathVariable Filiaal filiaal) {
+	if (filiaal == null) {
+	    throw new FiliaalNietGevondenException();
+	}
+	Set<HttpMethod> allowedMethods = new HashSet<>();
+	allowedMethods.add(HttpMethod.GET);
+	allowedMethods.add(HttpMethod.PUT);
+	if (filiaal.getWerknemers().isEmpty()) {
+	    allowedMethods.add(HttpMethod.DELETE);
+	}
+	HttpHeaders headers = new HttpHeaders();
+	headers.setAllow(allowedMethods);
+	return headers;
+    }
+
 }
