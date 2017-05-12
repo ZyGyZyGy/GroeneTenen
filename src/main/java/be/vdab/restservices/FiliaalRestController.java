@@ -1,10 +1,14 @@
 package be.vdab.restservices;
 
+import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -28,12 +32,15 @@ import be.vdab.services.FiliaalService;
 
 @RestController
 @RequestMapping("/filialen")
+@ExposesResourceFor(Filiaal.class)
 class FiliaalRestController {
     
     private final FiliaalService filiaalService;
+    private final EntityLinks entityLinks;
 
-    FiliaalRestController(FiliaalService filiaalService) {
+    FiliaalRestController(FiliaalService filiaalService, EntityLinks entityLinks) {
 	this.filiaalService = filiaalService;
+	this.entityLinks = entityLinks;
     }
  
     @GetMapping("{filiaal}")
@@ -64,9 +71,14 @@ class FiliaalRestController {
 	return "filiaal heeft nog werknemers";
     }
     
-    @PostMapping
-    void create(@RequestBody @Valid Filiaal filiaal) {
+    @PostMapping 
+    @ResponseStatus(HttpStatus.CREATED)
+    HttpHeaders create(@RequestBody @Valid Filiaal filiaal) {
 	filiaalService.create(filiaal);
+	HttpHeaders headers = new HttpHeaders();
+	Link link = entityLinks.linkToSingleResource(Filiaal.class, filiaal.getId());
+	headers.setLocation(URI.create(link.getHref()));
+	return headers;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
