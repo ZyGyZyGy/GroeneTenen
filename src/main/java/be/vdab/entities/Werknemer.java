@@ -3,6 +3,7 @@ package be.vdab.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,12 +26,18 @@ public class Werknemer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    
     private String voornaam;
+    
     private String familienaam;
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "filiaalId")
+    @JoinColumn(name = "filiaalId")    
     private Filiaal filiaal;
+    
     private BigDecimal wedde;
+    
+    @Column(unique = true) 
     private long rijksregisterNr;
 
     public long getId() {
