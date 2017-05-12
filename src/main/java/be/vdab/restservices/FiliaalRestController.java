@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -74,6 +75,11 @@ class FiliaalRestController {
 			.append('\n'));
 	fouten.deleteCharAt(fouten.length() - 1);
 	return fouten.toString();
+    }
+    
+    @PutMapping("{id}")
+    void update(@RequestBody @Valid Filiaal filiaal) {
+	filiaalService.update(filiaal);
     }
     
 }
