@@ -89,17 +89,29 @@
 	  		<groupId>org.springframework</groupId> 
 	  		<artifactId>spring-test</artifactId> 
   			<scope>test</scope> 
-		</dependency> 
-		<dependency> 
-  			<groupId>mysql</groupId> 
-  			<artifactId>mysql-connector-java</artifactId> 
-  			<version>[5.1,5.99]</version> 
-  			<scope>test</scope> 
-		</dependency> 
+		</dependency>  
 		<dependency> 
   			<groupId>org.springframework.data</groupId> 
   			<artifactId>spring-data-jpa</artifactId> 
   			<version>[1.10,]</version> 
+		</dependency> 
+		<dependency> <!-- in-memory database -->
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>[1.4,]</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>[3,]</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>el-impl</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
 		</dependency> 
 	</dependencies>
 </project>
