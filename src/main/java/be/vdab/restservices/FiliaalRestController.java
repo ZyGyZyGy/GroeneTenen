@@ -44,12 +44,12 @@ class FiliaalRestController {
     }
  
     @GetMapping("{filiaal}")
-    Filiaal read(@PathVariable Filiaal filiaal) {
+    FiliaalResource read(@PathVariable Filiaal filiaal) {
 	if (filiaal == null) {
 	    throw new FiliaalNietGevondenException();
 	}
-	return filiaal;
-    }
+	return new FiliaalResource(filiaal, entityLinks);
+    } 
     
     @ExceptionHandler(FiliaalNietGevondenException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -115,5 +115,10 @@ class FiliaalRestController {
 	headers.setAllow(allowedMethods);
 	return headers;
     }
-
+    
+    @GetMapping
+    FilialenResource findAll() {
+	return new FilialenResource(filiaalService.findAll(), entityLinks);
+    }
+    
 }
