@@ -73,9 +73,8 @@ public class DefaultFiliaalService implements FiliaalService {
     
     @Override
     @ModifyingTransactionalServiceMethod
-    public void afschrijven(Filiaal filiaal) {
-	filiaal.afschrijven(); 	// je wijzigt een entity binnen een transactie.
-				// JPA wijzigt dan automatisch het bijbehorende record bij de commit
+    public void afschrijven(List<Filiaal> filialen) {
+	filialen.forEach(filiaal -> filiaal.afschrijven());
     }
 
 }
