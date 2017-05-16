@@ -28,11 +28,13 @@
 				<dt>Type</dt>
 				<dd>${filiaal.hoofdFiliaal ? "Hoofdfiliaal" : "Bijfiliaal"}</dd>
 				<dt>Waarde gebouw</dt>
-				<dd><spring:eval expression='filiaal.waardeGebouw'/></dd> 
 				<spring:url value='/euro/{euro}/naardollar' var="naarDollarURL">
 					<spring:param name='euro' value='${filiaal.waardeGebouw}' />
 				</spring:url>
-				<a href='${naarDollarURL}'>in $</a>
+				<dd>
+					<spring:eval expression='filiaal.waardeGebouw'/>
+					<a href='${naarDollarURL}'>in $</a>
+				</dd> 
 				<dt>Ingebruikname</dt>
 				<dd><spring:eval expression='filiaal.ingebruikname'/></dd>
 			</dl>
