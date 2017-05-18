@@ -33,7 +33,7 @@ class DefaultMailSender implements MailSender {
 	    MimeMessageHelper helper = new MimeMessageHelper(message);
 	    helper.setTo(webmaster);
 	    helper.setSubject("Nieuw filiaal");
-	    helper.setText(String.format("Filiaal <strong>%s</strong> is toegevoegd", filiaal.getNaam()), true);
+	    helper.setText(String.format("Filiaal <strong>%s</strong> is toegevoegd<br/><b>Gebouwwaarde:</b> %s", filiaal.getNaam(), filiaal.getWaardeGebouw()), true);
 	    sender.send(message);
 	} catch (MessagingException | MailException ex) {
 	    LOGGER.log(Level.SEVERE, "kan mail nieuw filiaal niet versturen", ex);
