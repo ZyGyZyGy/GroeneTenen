@@ -85,7 +85,7 @@ public class DefaultFiliaalService implements FiliaalService {
     }
 
     @Override 
-    @Scheduled(/*cron = "0 0 1 * * *"*/ fixedRate=3600000) // test = om het uur
+    @Scheduled(cron = "0 0 1 * * *" /*fixedRate=3600000*/) // test = om het uur
     public void aantalFilialenMail() { 
       mailSender.aantalFilialenMail(filiaalRepository.count()); 
     } 
