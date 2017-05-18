@@ -17,6 +17,9 @@
 		<input name='password' type='password' required></label>
 		<security:csrfInput />
 		<input type='submit' value='Aanmelden'>
+		<c:if test='${param.error != null}'>
+			<div class='fout'>Verkeerde gebruikersnaam of paswoord.</div>
+		</c:if>
 	</form>
 </body>
 </html>

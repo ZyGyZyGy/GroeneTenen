@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	http.formLogin().loginPage("/login")
+				.and().logout().logoutSuccessUrl("/")
                 		.and().authorizeRequests()
                 		.antMatchers("/filialen/toevoegen", "/filialen/*/wijzigen", "/filialen/*/verwijderen")
                 		.hasAuthority(MANAGER).antMatchers(HttpMethod.POST, "/filialen").hasAuthority(MANAGER)
