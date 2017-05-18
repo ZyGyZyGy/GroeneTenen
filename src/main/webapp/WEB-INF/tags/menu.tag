@@ -44,7 +44,7 @@
 	 	<security:authorize access='isAuthenticated ()'>
 			<li>
 				<form method='post' action='<c:url value="/logout"/>' id='logoutform'>
-					<input type='submit' value='Afmelden' id='logoutbutton'>
+					<input type='submit' value='<security:authentication property="name"/> afmelden' id='logoutbutton'> 
 					<security:csrfInput />
 				</form>
 			</li>
