@@ -63,9 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		.antMatchers("/filialen/toevoegen", "/filialen/*/wijzigen", "/filialen/*/verwijderen").hasAnyAuthority(MANAGER, CEO)
     		.antMatchers(HttpMethod.POST, "/filialen").hasAnyAuthority(MANAGER, CEO)
     		.antMatchers("/werknemers").hasAnyAuthority(MAGAZIJNIER, HELPDESKMEDEWERKER, CEO)
+    		.antMatchers(HttpMethod.PUT, "/filialen/*").hasAnyAuthority(MANAGER, CEO) 
+    		.antMatchers(HttpMethod.DELETE, "/filialen/*").hasAnyAuthority(MANAGER, CEO) 
     		.antMatchers("/", "/login").permitAll()  
     		.antMatchers("/**").authenticated()
     		.and().exceptionHandling().accessDeniedPage("/WEB-INF/JSP/forbidden.jsp");
+	http.httpBasic();
     }
     
     
