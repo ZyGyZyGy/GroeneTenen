@@ -6,4 +6,6 @@ public interface MailSender {
 
     void nieuwFiliaalMail(Filiaal filiaal);
 
+    void aantalFilialenMail(long aantal); 
+    
 }

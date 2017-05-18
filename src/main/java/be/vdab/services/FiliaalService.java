@@ -25,5 +25,7 @@ public interface FiliaalService {
     List<Filiaal> findNietAfgeschreven(); 
     
     void afschrijven(List<Filiaal> filialen);
+    
+    void aantalFilialenMail();
 
 }
