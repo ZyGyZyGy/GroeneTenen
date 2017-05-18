@@ -1,5 +1,7 @@
 package be.vdab.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,13 +18,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String MANAGER = "manager";
     private static final String HELPDESKMEDEWERKER = "helpdeskmedewerker";
     private static final String MAGAZIJNIER = "magazijnier";
+    
+    private final DataSource dataSource;
 
+    public SecurityConfig(DataSource dataSource) {
+	this.dataSource = dataSource;
+    }
+    
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-	auth.inMemoryAuthentication()
-		.withUser("joe").password("theboss").authorities(MANAGER)
-		.and().withUser("averell").password("hungry").authorities(HELPDESKMEDEWERKER, MAGAZIJNIER)
-		.and().withUser("alex").password("vdab").authorities(CEO);
+	auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
