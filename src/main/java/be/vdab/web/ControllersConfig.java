@@ -43,6 +43,7 @@ public class ControllersConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 	registry.addViewController("/info").setViewName("info");
+	registry.addViewController("/login").setViewName("login");
     }
     
     @Bean

@@ -52,7 +52,7 @@ public class Filiaal implements Serializable {
     
     private boolean hoofdFiliaal;
     
-    @NumberFormat(style = Style.CURRENCY)
+    @NumberFormat(style = Style.NUMBER)
     @NotNull 
     @Min(0) 
     @Digits(integer = 10, fraction = 2) 

@@ -3,6 +3,7 @@
 <%@taglib prefix='spring' uri='http://www.springframework.org/tags'%> 
 <%@taglib prefix='v' uri='http://vdab.be/tags'%>
 <%@taglib prefix='spring' uri='http://www.springframework.org/tags'%> 
+<%@taglib prefix='security' uri='http://www.springframework.org/security/tags'%> 
 <!doctype html>
 <html lang='nl'>
 <head>
@@ -31,8 +32,8 @@
 				<spring:url value='/euro/{euro}/naardollar' var="naarDollarURL">
 					<spring:param name='euro' value='${filiaal.waardeGebouw}' />
 				</spring:url>
-				<dd>
-					<spring:eval expression='filiaal.waardeGebouw'/>
+				<dd>&euro;
+					<spring:eval expression='filiaal.waardeGebouw' />
 					<a href='${naarDollarURL}'>in $</a>
 				</dd> 
 				<dt>Ingebruikname</dt>
@@ -41,11 +42,12 @@
 			
 			<spring:url value='/filialen/{id}/verwijderen' var='verwijderURL'> 
 		  		<spring:param name='id' value='${filiaal.id}'/> 
-			</spring:url> 
-			
+			</spring:url> 		
 			<form action='${verwijderURL}' method='post'> 
+				<security:csrfInput/> 
 				<input type='submit' value='Verwijderen'> 
 			</form>
+			
 			<spring:url value='/filialen/{id}/wijzigen' var='wijzigURL'> 
 			 	<spring:param name='id' value='${filiaal.id}'/> 
 			</spring:url> 
