@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -59,6 +58,7 @@ class FiliaalController {
     ModelAndView findAll() {
 	return new ModelAndView(FILIALEN_VIEW, "filialen", filiaalService.findAll())
 		.addObject("aantalFilialen", filiaalService.findAantalFilialen());
+//		.addObject("password", new BCryptPasswordEncoder().encode("vdab"));
     }
 
     @GetMapping("toevoegen") 

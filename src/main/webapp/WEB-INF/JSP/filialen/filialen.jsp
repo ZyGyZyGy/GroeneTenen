@@ -9,6 +9,7 @@
 </head>
 <body>
 	<v:menu />
+<%-- 	<h1>${password}</h1> --%>
 	<h1>
 		<spring:message code="aantalFilialen" arguments="${aantalFilialen}" />
 	</h1>
