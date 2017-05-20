@@ -18,7 +18,7 @@ class Logging {
     
     private final static Logger LOGGER = Logger.getLogger(Logging.class.getName());
 
-    @AfterThrowing(pointcut = "execution(* be.vdab.services.*.*(..)) "
+    @AfterThrowing(pointcut = "execution(* be.vdab.aop.PointcutExpressions.servicesEnTransacties()) "
 	    + "|| execution(* org.springframework.transaction.*.*(..))", throwing = "ex")
     void schrijfException(JoinPoint joinPoint, Throwable ex) {
 	StringBuilder builder = 

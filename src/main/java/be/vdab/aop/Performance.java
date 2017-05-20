@@ -14,7 +14,7 @@ class Performance {
     
     private final static Logger LOGGER = Logger.getLogger(Performance.class.getName());
 
-    @Around("execution(* be.vdab.services.*.*(..))")
+    @Around("execution(* be.vdab.aop.PointcutExpressions.services())")
     Object schrijfPerformance(ProceedingJoinPoint joinPoint) throws Throwable {
 	long voor = System.nanoTime();
 	try {
