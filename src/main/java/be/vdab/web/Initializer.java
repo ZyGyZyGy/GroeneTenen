@@ -5,6 +5,7 @@ import javax.servlet.Filter;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import be.vdab.aop.AOPConfig;
 import be.vdab.datasource.DataSourceConfig;
 import be.vdab.mail.MailConfig;
 import be.vdab.repositories.RepositoriesConfig;
@@ -28,7 +29,8 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	    ServicesConfig.class, 
 	    RestClientsConfig.class,
 	    MailConfig.class,
-	    SecurityConfig.class };
+	    SecurityConfig.class,
+	    AOPConfig.class };
     }
 
     @Override
