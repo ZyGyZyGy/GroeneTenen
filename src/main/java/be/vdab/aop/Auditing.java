@@ -18,7 +18,7 @@ class Auditing {
     
     private final static Logger LOGGER = Logger.getLogger(Auditing.class.getName());
 
-    @AfterReturning(pointcut = "execution(* be.vdab.aop.PointcutExpressions.services())",
+    @AfterReturning(pointcut = "be.vdab.aop.PointcutExpressions.services()",
 	    returning = "returnValue")
     void schrijfAudit(JoinPoint joinPoint, Object returnValue) {
 	StringBuilder builder =
