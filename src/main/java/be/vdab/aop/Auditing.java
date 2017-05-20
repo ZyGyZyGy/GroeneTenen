@@ -8,12 +8,14 @@ import java.util.logging.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(1)
 class Auditing {
     
     private final static Logger LOGGER = Logger.getLogger(Auditing.class.getName());
