@@ -147,7 +147,7 @@ class FiliaalController {
 	return new ModelAndView(WIJZIGEN_VIEW).addObject(filiaal);
     }
     
-    @PostMapping("{id}/wijzigen")
+    @PostMapping("{filiaal}/wijzigen")
     String update(@Valid Filiaal filiaal, BindingResult bindingResult) {
 	if (bindingResult.hasErrors()) {
 	    return WIJZIGEN_VIEW;
